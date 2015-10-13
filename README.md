@@ -1,16 +1,16 @@
 # Spike project
 
 Peter Pilgrim, 2015
-Research Spike Project 
+Research Spike Project for WILDFLY SWARM
 
 How does development work for front-end and server side?
 
-In particular, verify that AngularJS development can work seamlessly. 
+In particular, verify that WildFly Swarm development can work seamlessly. 
 
 Front end developer do NOT want to restart the Spring Boot service every time that dynamically change the HTML, CSS or graphic resources. 
 So we need to find how Spring Boot handles this situation?
 
-Project [https://github.com/peterpilgrim/spring-boot-spike](https://github.com/peterpilgrim/spring-boot-spike)
+Project [https://github.com/peterpilgrim/wildfly-swarm-spike](https://github.com/peterpilgrim/wildfly-swarm-spike)
 
 # Goals
 
@@ -41,7 +41,7 @@ Establish the fast development lifecycle?
 
     > mvn clean
     > mvn package
-    > mvn spring-boot:run
+    > mvn wildfly-swarm:run
 
 
 # Process 
@@ -49,19 +49,6 @@ Establish the fast development lifecycle?
     
 Navigate the [http://localhost:8080/](http://localhost:8080/) to see the first page.
 
-Verify resources are being served [http://localhost:8080/resources/styles/bootstrap.css], [http://localhost:8080/resources/javascripts/angular.js]
-
-
-
-Test the REST remote endpoints: [http://localhost:8080/checkService](http://localhost:8080/checkService), 
-
-We also tried out [Handlebar Java port](https://github.com/jknack/handlebars.java) as an alternative template page view technology:
-
-Spring MVC Foo: [http://localhost:8080/foo](http://localhost:8080/foo)
-
-Spring MVC Page view with Bootstrap CSS [http://localhost:8080/welcome](http://localhost:8080/welcome)
-
-Spring MVC deliberate exception [http://localhost:8080/blowup](http://localhost:8080/blowup)
 
 
 # Results
@@ -70,21 +57,75 @@ Spring MVC deliberate exception [http://localhost:8080/blowup](http://localhost:
 
 We see these advantages:
 
-* Spring Boot starts and launches well with well known dependency injection.
-* Spring MVC and the REST side work well.
-* We like the metrics and health module.
-* We like the option to generate a WAR file that can launch on traditional application servers.
-* We like the command line option.
+TBC
 
 ## Cons
 
 We also see these disadvantages:
 
-* The solution struggles to serve dynamic content on the hot-reload and/or frontend change.
-* Because the solution is outside of Java EE in regards with src/main/webapp folder, then it is hard to develop iteratively and experimentally. 
-So far we find this is major concern for us ...
-* Information on how to further solve this issue is not easy to find on the Internet. We are particular concern with development with existing IDEs (Eclipse and JetBrains IDEA, WebStorm) 
+TBC
 
 ## Time
 
-We are aware that lack of time might be unfair. However, we refer back to main consideration of getting new starters up to speed quickly. If the solution is harder than the standard Java EE environment to start up, then it probably proves a point.
+TBC
+
+
+
+# Issue
+
+We are unable to even start Wildfly Swarm because it fails to launch the container. 
+
+This is the current stacktrace:
+
+    Connected to the target VM, address: '127.0.0.1:59226', transport: 'socket'
+    org.jboss.modules.ModuleLoadException: Error loading module from modules/org/jboss/msc/main/module.xml
+        at org.jboss.modules.ModuleXmlParser.parseModuleXml(ModuleXmlParser.java:150)
+        at org.jboss.modules.ModuleXmlParserBridge.parseModuleXml(ModuleXmlParserBridge.java:17)
+        at org.wildfly.swarm.bootstrap.modules.BootstrapClasspathModuleFinder.findModule(BootstrapClasspathModuleFinder.java:35)
+        at org.jboss.modules.ModuleLoader.findModule(ModuleLoader.java:452)
+        at org.jboss.modules.ModuleLoader.loadModuleLocal(ModuleLoader.java:355)
+        at org.jboss.modules.ModuleLoader.preloadModule(ModuleLoader.java:302)
+        at org.jboss.modules.Module.addExportedPaths(Module.java:1179)
+        at org.jboss.modules.Module.addPaths(Module.java:1071)
+        at org.jboss.modules.Module.link(Module.java:1398)
+        at org.jboss.modules.Module.relinkIfNecessary(Module.java:1426)
+        at org.jboss.modules.ModuleLoader.loadModule(ModuleLoader.java:238)
+        at org.wildfly.swarm.container.Container.createServer(Container.java:127)
+        at org.wildfly.swarm.container.Container.<init>(Container.java:97)
+        at org.wildfly.swarm.container.Container.<init>(Container.java:85)
+        at com.acme.example.Main.main(Main.java:16)
+    Caused by: org.jboss.modules.xml.XmlPullParserException: Failed to resolve artifact 'org.jboss.msc:jboss-msc:1.2.6.Final' (position: END_TAG seen ...es>\n        <artifact name="org.jboss.msc:jboss-msc:1.2.6.Final"/>... @34:63) 
+        at org.jboss.modules.ModuleXmlParser.parseArtifact(ModuleXmlParser.java:756)
+        at org.jboss.modules.ModuleXmlParser.parseResources(ModuleXmlParser.java:650)
+        at org.jboss.modules.ModuleXmlParser.parseModuleContents(ModuleXmlParser.java:446)
+        at org.jboss.modules.ModuleXmlParser.parseDocument(ModuleXmlParser.java:261)
+        at org.jboss.modules.ModuleXmlParser.parseModuleXml(ModuleXmlParser.java:148)
+        ... 14 more
+    Exception in thread "main" org.jboss.modules.ModuleLoadException: Error loading module from modules/org/jboss/msc/main/module.xml
+        at org.jboss.modules.ModuleXmlParser.parseModuleXml(ModuleXmlParser.java:150)
+        at org.jboss.modules.ModuleXmlParserBridge.parseModuleXml(ModuleXmlParserBridge.java:17)
+        at org.wildfly.swarm.bootstrap.modules.BootstrapClasspathModuleFinder.findModule(BootstrapClasspathModuleFinder.java:35)
+        at org.jboss.modules.ModuleLoader.findModule(ModuleLoader.java:452)
+        at org.jboss.modules.ModuleLoader.loadModuleLocal(ModuleLoader.java:355)
+        at org.jboss.modules.ModuleLoader.preloadModule(ModuleLoader.java:302)
+        at org.jboss.modules.Module.addExportedPaths(Module.java:1179)
+        at org.jboss.modules.Module.addPaths(Module.java:1071)
+        at org.jboss.modules.Module.link(Module.java:1398)
+        at org.jboss.modules.Module.relinkIfNecessary(Module.java:1426)
+        at org.jboss.modules.ModuleLoader.loadModule(ModuleLoader.java:238)
+        at org.wildfly.swarm.container.Container.createServer(Container.java:127)
+        at org.wildfly.swarm.container.Container.<init>(Container.java:97)
+        at org.wildfly.swarm.container.Container.<init>(Container.java:85)
+        at com.acme.example.Main.main(Main.java:16)
+    Caused by: org.jboss.modules.xml.XmlPullParserException: Failed to resolve artifact 'org.jboss.msc:jboss-msc:1.2.6.Final' (position: END_TAG seen ...es>\n        <artifact name="org.jboss.msc:jboss-msc:1.2.6.Final"/>... @34:63) 
+        at org.jboss.modules.ModuleXmlParser.parseArtifact(ModuleXmlParser.java:756)
+        at org.jboss.modules.ModuleXmlParser.parseResources(ModuleXmlParser.java:650)
+        at org.jboss.modules.ModuleXmlParser.parseModuleContents(ModuleXmlParser.java:446)
+        at org.jboss.modules.ModuleXmlParser.parseDocument(ModuleXmlParser.java:261)
+    Disconnected from the target VM, address: '127.0.0.1:59226', transport: 'socket'
+        at org.jboss.modules.ModuleXmlParser.parseModuleXml(ModuleXmlParser.java:148)
+        ... 14 more
+    
+    Process finished with exit code 1
+
+

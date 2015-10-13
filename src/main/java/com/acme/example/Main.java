@@ -27,10 +27,11 @@ public class Main {
         // Start the container
         container.start();
 
-        JAXRSArchive deployment = ShrinkWrap.create(JAXRSArchive.class);
-        deployment.addResource( MyResource.class );
+        JAXRSArchive archive = ShrinkWrap.create(JAXRSArchive.class);
+        archive.addResource(MyResource.class);
+        archive.addResource(MyApplication.class);
 
         // Deploy your JAX-RS app
-        container.deploy(deployment);
+        container.deploy(archive);
     }
 }

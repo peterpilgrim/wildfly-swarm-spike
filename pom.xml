@@ -39,6 +39,11 @@
             <artifactId>wildfly-swarm-weld</artifactId>
             <version>${wildfly.swarm.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.wildfly.swarm</groupId>
+            <artifactId>wildfly-swarm-container-runtime</artifactId>
+            <version>${wildfly.swarm.version}</version>
+        </dependency>
     </dependencies>
 
 
@@ -48,6 +53,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                     <packagingExcludes>WEB-INF/lib/wildfly-swarm-*.jar</packagingExcludes>
@@ -58,6 +64,9 @@
                 <groupId>org.wildfly.swarm</groupId>
                 <artifactId>wildfly-swarm-plugin</artifactId>
                 <version>${wildfly.swarm.version}</version>
+                <configuration>
+                    <mainClass>com.acme.example.Main</mainClass>
+                </configuration>
                 <executions>
                     <execution>
                         <goals>

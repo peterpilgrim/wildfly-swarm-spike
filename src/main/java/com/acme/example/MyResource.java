@@ -1,5 +1,6 @@
 package com.acme.example;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.security.auth.login.LoginException;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -8,6 +9,7 @@ import java.util.Date;
 /**
  * Created by ppilgrim on 13-Oct-2015.
  */
+@ApplicationScoped
 public class MyResource {
 
     @Path("/hello")
