@@ -39,7 +39,7 @@ Establish the fast development lifecycle?
 * Maven 3 
 
 
-    > mvn clean
+    > mvn clean 
     > mvn package
     > mvn wildfly-swarm:run
 
