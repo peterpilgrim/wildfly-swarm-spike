@@ -15,14 +15,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
         Container container = new Container();
 
-        container.subsystem(new MessagingFraction()
-                .server(
-                    new MessagingServer()
-                        .enableInVMConnector()
-                        .topic("my-topic")
-                        .queue("my-queue")
-                )
-        );
+        final MessagingServer messagingServer = new MessagingServer().enableInVMConnector()
+                                .topic("my-topic")
+                                .queue("my-queue");
+
+//        container.fraction( MessagingFraction.createDefaultFraction().server(  messagingServer ));
 
         // Start the container
         container.start();
